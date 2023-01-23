@@ -1,4 +1,4 @@
-![course-logo](https://github.com/samblg/cpp20-plus-indepth/cpp20-plus-and-evermore.png)
+![course-logo](https://github.com/samblg/cpp20-plus-indepth/raw/main/cpp20-plus-and-evermore.png)
 
 --------------------------------------------------------------------------------
 
