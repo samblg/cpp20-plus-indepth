@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(ch02)
+set (TARGET 06-ModulePartition)
+project(${TARGET})
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -20,7 +21,6 @@ function (prepare_for_module TGT)
 	endif()
 endfunction()
 
-set (TARGET 06-ModulePartition)
 set (MODULE_EXT cpp)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
