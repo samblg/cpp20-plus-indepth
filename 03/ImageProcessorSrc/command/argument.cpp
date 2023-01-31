@@ -37,7 +37,7 @@ namespace ips::command {
             return _required;
         }
 
-        bool setRequired(bool required) {
+        void setRequired(bool required) {
             _required = required;
         }
 
