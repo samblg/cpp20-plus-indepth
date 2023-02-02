@@ -106,7 +106,7 @@ namespace numcpp {
 
                 auto currentDimSize = *(shapeDimIterator - 1);
                 currentRowSize *= currentDimSize;
-                -- shapeDimIterator;
+                --shapeDimIterator;
             }
 
             return _data.get()[flattenIndex];

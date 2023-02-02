@@ -26,7 +26,7 @@ namespace numcpp {
     template <class T>
     concept HasEnd = std::is_member_function_pointer_v<
         decltype(
-            IteratorMemberFunction<T>(&T::begin)
+            IteratorMemberFunction<T>(&T::end)
             )
     >;
 
