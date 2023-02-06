@@ -1,0 +1,119 @@
+#include "ca/IoUtils.h"
+#include "ca/SerializeUtils.h"
+#include <set>
+#include <string>
+#include <string_view>
+
+using ca::types::ModelObjectTableData;
+using ca::types::ModelView;
+using ca::types::ModelObject;
+
+static std::ostream& operator<<(
+    std::ostream& os,
+    const ModelObject& modelObject
+);
+
+static std::ostream& operator<<(
+    std::ostream& os,
+    ModelView::Object::ResolutionType resolutionType
+);
+
+std::ostream& operator<<(
+    std::ostream& os,
+    const ca::types::ChoosedModelObjectTableData& choosedModelObjectTableData
+) {
+    os << "================================================== "
+        "三维模型分析表"
+        " ===================================================" << std::endl;
+    os << "视图类型：" << choosedModelObjectTableData.resolutionType << std::endl;
+    os << "分析结果：" << std::endl;
+    os << "序号\t | 视图名称\t | 三角面片数（上限：" << 
+        choosedModelObjectTableData.objectTableData->meshCount << ")\t | 可用三角面片数\t | 对象数\t | 对象\t\t | 对象面片数\t" << std::endl;
+    for (const auto& modelObject : choosedModelObjectTableData.getCurrentModelObjects()) {
+        os << modelObject << std::endl;
+    }
+
+    os << "===================================================="
+        "========"
+        "======================================================" << std::endl;
+
+    return os;
+}
+
+constexpr std::string_view HIGH_RESOLUTION = "高精度";
+constexpr std::string_view LOW_RESOLUTION = "低精度";
+
+std::ostream& operator<<(
+    std::ostream& os,
+    ModelView::Object::ResolutionType resolutionType
+) {
+    bool isHighResolution = resolutionType == ModelView::Object::ResolutionType::High;
+    os << (isHighResolution ? HIGH_RESOLUTION : LOW_RESOLUTION);
+
+    return os;
+}
+
+std::ostream& operator<<(
+    std::ostream& os,
+    const ModelObject& modelObject
+) {
+    os << modelObject.viewOrder << "\t | " <<
+        modelObject.getCompleteViewName() << "\t | " <<
+        modelObject.viewUsedMeshCount << "\t\t\t | " <<
+        modelObject.viewFreeMeshCount << "\t\t | " <<
+        modelObject.viewObjectCount << "\t\t | " <<
+        modelObject.objectName << "\t | "<<
+        modelObject.meshCount;
+
+    return os;
+}
+
+// 序列化ca::types::ModelView
+ca::utils::Serializer& operator<<(
+    ca::utils::Serializer& serializer,
+    const ca::types::ModelView& modelView
+) {
+    return serializer
+        << modelView.viewId
+        << modelView.viewTypeName
+        << modelView.viewName
+        << modelView.createdAt
+        << modelView.viewObjectList;
+}
+
+// 序列化ca::types::ModelView::Object
+ca::utils::Serializer& operator<<(
+    ca::utils::Serializer& serializer,
+    const ca::types::ModelView::Object& object
+) {
+    return serializer
+        << object.objectTypeID
+        << object.name
+        << object.meshCounts
+        << object.renderChannels;
+}
+
+// 反序列化ca::types::ModelView
+ca::utils::Deserializer& operator>>(
+    ca::utils::Deserializer& deserializer,
+    ca::types::ModelView& modelView
+) {
+    return deserializer
+        >> modelView.viewId
+        >> modelView.viewTypeName
+        >> modelView.viewName
+        >> modelView.createdAt
+        >> modelView.viewObjectList;
+}
+
+// 反序列化ca::types::ModelView::Object
+ca::utils::Deserializer& operator>>(
+    ca::utils::Deserializer& deserializer,
+    ca::types::ModelView::Object& object
+) {
+    return deserializer
+        >> object.objectTypeID
+        >> object.name
+        >> object.meshCounts
+        >> object.renderChannels;
+}
