@@ -23,7 +23,7 @@ namespace ips::command {
         std::string getNamedArgument(const std::string& name) {
             std::string value = _parsedArgs[name];
 
-            value;
+            return value;
         }
 
         template <class T>
