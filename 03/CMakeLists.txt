@@ -1,19 +1,33 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(ImageProcessorUniversal)
+set (TARGET ImageProcessorUniversal)
+
+project(${TARGET})
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	add_compile_options(-fmodules-ts)
+add_custom_target(std_modules ALL
+    COMMAND ${CMAKE_COMMAND} -E echo "Building standard library modules"
+    COMMAND g++ -fmodules-ts -std=c++20 -c -x c++-system-header iostream string vector map functional cstdint memory
 
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
+function (prepare_for_module TGT)
+    target_compile_options(${TGT} PUBLIC -fmodules-ts)
+    set_property(TARGET ${TGT} PROPERTY CXX_STANDARD 20)
+    set_property(TARGET ${TGT} PROPERTY CXX_EXTENSIONS OFF)
 	if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-		add_compile_options(c++-system-header iostream string vector map functional cstdint)
+        add_dependencies(${TGT} std_modules)
 	endif()
+endfunction()
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-fmodules-ts)
 
 	add_executable(
-		ImageProcessorUniversal
+		${TARGET}
 		src/command/argument.cpp
 		src/command/parser.cpp
 		src/command/command.cpp
@@ -29,6 +43,10 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GN
 		src/app/app.cpp
 		src/main.cpp
 	)
+
+	if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+		prepare_for_module(${TARGET})
+	endif()
 
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	add_executable(
