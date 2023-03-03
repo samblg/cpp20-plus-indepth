@@ -8,19 +8,23 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CXX_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 
-add_custom_target(std_modules ALL
-    COMMAND ${CMAKE_COMMAND} -E echo "Building standard library modules"
-    COMMAND g++ -fmodules-ts -std=c++20 -c -x c++-system-header iostream cstdint concepts type_traits vector initializer_list tuple cstring memory algorithm stdexcept array
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_custom_target(std_modules ALL
+            COMMAND ${CMAKE_COMMAND} -E echo "Building standard library modules"
+            COMMAND g++ -fmodules-ts -std=c++20 -c -x c++-system-header iostream cstdint concepts type_traits vector initializer_list tuple cstring memory algorithm stdexcept array
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        )
+
+        add_dependencies(${TGT} std_modules)
+endif()
 
 function (prepare_for_module TGT)
     target_compile_options(${TGT} PUBLIC -fmodules-ts)
     set_property(TARGET ${TGT} PROPERTY CXX_STANDARD 20)
     set_property(TARGET ${TGT} PROPERTY CXX_EXTENSIONS OFF)
-	if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         add_dependencies(${TGT} std_modules)
-	endif()
+    endif()
 endfunction()
 
 set (MODULE_EXT cpp)
