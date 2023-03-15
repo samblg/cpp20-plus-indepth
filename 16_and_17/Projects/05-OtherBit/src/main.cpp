@@ -19,14 +19,14 @@ void testCeilFloor() {
     for (uint32_t value = 0; value < 8u; ++value) {
         std::cout << std::format("ceil({}): {}",
             std::bitset<4>(value).to_string(),
-            std::bitset<4>(std::ceil(value)).to_string()
+            std::bitset<4>(std::bit_ceil(value)).to_string()
         ) << std::endl;
     }
 
     for (uint32_t value = 0; value < 8u; ++value) {
         std::cout << std::format("ceil({}): {}",
             std::bitset<4>(value).to_string(),
-            std::bitset<4>(std::floor(value)).to_string()
+            std::bitset<4>(std::bit_floor(value)).to_string()
         ) << std::endl;
     }
 }
