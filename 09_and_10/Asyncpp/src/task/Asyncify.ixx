@@ -9,7 +9,7 @@ import asyncpp.core;
 namespace asyncpp::task {
     using asyncpp::core::Invocable;
 
-    // Ä¬ÈÏµÄAsyncTaskSuspender£¨µ±ÈÎÎñº¯Êı·µ»ØÀàĞÍ²»ÎªvoidÊ±£©
+    // é»˜è®¤çš„AsyncTaskSuspenderï¼ˆå½“ä»»åŠ¡å‡½æ•°è¿”å›ç±»å‹ä¸ä¸ºvoidæ—¶ï¼‰
     template <typename ResultType>
     void defaultAsyncAwaitableSuspend(
         Awaitable<ResultType>* awaitable,
@@ -63,7 +63,7 @@ namespace asyncpp::task {
     //    });
     //}
 
-    // Ä¬ÈÏµÄAsyncTaskSuspender£¨µ±ÈÎÎñº¯Êı·µ»ØÀàĞÍÎªvoidÊ±£©
+    // é»˜è®¤çš„AsyncTaskSuspenderï¼ˆå½“ä»»åŠ¡å‡½æ•°è¿”å›ç±»å‹ä¸ºvoidæ—¶ï¼‰
     template <>
     void defaultAsyncAwaitableSuspend<void>(
         Awaitable<void>* awaitable,
@@ -79,7 +79,7 @@ namespace asyncpp::task {
         });
     }
 
-    // Òì²½»¯¹¤¾ßº¯Êı£¬Ö§³Ö½«ÆÕÍ¨º¯ÊıfÒì²½»¯
+    // å¼‚æ­¥åŒ–å·¥å…·å‡½æ•°ï¼Œæ”¯æŒå°†æ™®é€šå‡½æ•°få¼‚æ­¥åŒ–
     export template <Invocable T>
     auto asyncify(
         T taskHandler, 

@@ -30,6 +30,7 @@ endfunction()
 set (MODULE_EXT cpp)
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set (MODULE_EXT ixx)
+    add_compile_options(/utf-8)
 endif()
 
 add_executable(

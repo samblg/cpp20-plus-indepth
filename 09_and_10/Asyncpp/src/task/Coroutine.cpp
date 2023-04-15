@@ -4,10 +4,10 @@ import <coroutine>;
 import <functional>;
 
 namespace asyncpp::task {
-    // Ğ­³ÌÀà
+    // åç¨‹ç±»
     export struct Coroutine
     {
-        // Ğ­³ÌPromise¶¨Òå
+        // åç¨‹Promiseå®šä¹‰
         struct promise_type
         {
             //std::function<void()> _doneHook;
@@ -24,7 +24,7 @@ namespace asyncpp::task {
             void unhandled_exception() {}
         };
 
-        // Ğ­³ÌµÄ¾ä±ú£¬¿ÉÓÃÓÚ¹¹½¨CoroutineÀà£¬²¢ÔÚÒµÎñ´úÂëÖĞµ÷ÓÃ½Ó¿Ú½øĞĞÏà¹Ø²Ù×÷
+        // åç¨‹çš„å¥æŸ„ï¼Œå¯ç”¨äºæ„å»ºCoroutineç±»ï¼Œå¹¶åœ¨ä¸šåŠ¡ä»£ç ä¸­è°ƒç”¨æ¥å£è¿›è¡Œç›¸å…³æ“ä½œ
         std::coroutine_handle<promise_type> _handle;
 
         //bool done() const {
@@ -65,7 +65,7 @@ namespace asyncpp::task {
         //}
     };
 
-    // AsyncTaskSuspenderÀàĞÍÉùÃ÷
+    // AsyncTaskSuspenderç±»å‹å£°æ˜
     export template <typename ResultType>
     struct Awaitable;
     export using AsyncTaskResumer = std::function<void()>;
@@ -75,15 +75,15 @@ namespace asyncpp::task {
         Awaitable<ResultType>*, AsyncTaskResumer, CoroutineHandle&
     )>;
 
-    // AwaitableÀàĞÍ¶¨Òå£¨µ±ÈÎÎñº¯Êı·µ»ØÀàĞÍ²»ÎªvoidÊ±£©
+    // Awaitableç±»å‹å®šä¹‰ï¼ˆå½“ä»»åŠ¡å‡½æ•°è¿”å›ç±»å‹ä¸ä¸ºvoidæ—¶ï¼‰
     export template <typename ResultType>
     struct Awaitable
     {
-        // co_awaitÊ±ĞèÒªÖ´ĞĞµÄÈÎÎñ£¬¿ª·¢Õß¿ÉÒÔÔÚsuspendÊµÏÖÖĞµ÷ÓÃ¸Ãº¯ÊıÖ´ĞĞÓÃ»§ÆÚÍûµÄÈÎÎñ
+        // co_awaitæ—¶éœ€è¦æ‰§è¡Œçš„ä»»åŠ¡ï¼Œå¼€å‘è€…å¯ä»¥åœ¨suspendå®ç°ä¸­è°ƒç”¨è¯¥å‡½æ•°æ‰§è¡Œç”¨æˆ·æœŸæœ›çš„ä»»åŠ¡
         std::function<ResultType()> _taskHandler;
-        // ´æ´¢ÈÎÎñÖ´ĞĞµÄ½á¹û£¬»áÔÚawait_resumeÖĞ×÷Îªco_await±í´ïÊ½µÄÖµ·µ»Ø¡£
+        // å­˜å‚¨ä»»åŠ¡æ‰§è¡Œçš„ç»“æœï¼Œä¼šåœ¨await_resumeä¸­ä½œä¸ºco_awaitè¡¨è¾¾å¼çš„å€¼è¿”å›ã€‚
         ResultType _taskResult;
-        // ´æ´¢¿ª·¢Õß×Ô¶¨ÒåµÄawait_suspendÊµÏÖ£¬»áÔÚawait_suspendÖĞµ÷ÓÃ
+        // å­˜å‚¨å¼€å‘è€…è‡ªå®šä¹‰çš„await_suspendå®ç°ï¼Œä¼šåœ¨await_suspendä¸­è°ƒç”¨
         AsyncTaskSuspender<ResultType> _suspender;
 
         bool await_ready() { return false; }
@@ -97,13 +97,13 @@ namespace asyncpp::task {
         }
     };
 
-    // AwaitableÀàĞÍ¶¨Òå£¨µ±ÈÎÎñº¯Êı·µ»ØÀàĞÍÎªvoidÊ±£©
+    // Awaitableç±»å‹å®šä¹‰ï¼ˆå½“ä»»åŠ¡å‡½æ•°è¿”å›ç±»å‹ä¸ºvoidæ—¶ï¼‰
     export template <>
     struct Awaitable<void>
     {
-        // co_awaitÊ±ĞèÒªÖ´ĞĞµÄÈÎÎñ£¬¿ª·¢Õß¿ÉÒÔÔÚsuspendÊµÏÖÖĞµ÷ÓÃ¸Ãº¯ÊıÖ´ĞĞÓÃ»§ÆÚÍûµÄÈÎÎñ
+        // co_awaitæ—¶éœ€è¦æ‰§è¡Œçš„ä»»åŠ¡ï¼Œå¼€å‘è€…å¯ä»¥åœ¨suspendå®ç°ä¸­è°ƒç”¨è¯¥å‡½æ•°æ‰§è¡Œç”¨æˆ·æœŸæœ›çš„ä»»åŠ¡
         std::function<void()> _taskHandler;
-        // ´æ´¢¿ª·¢Õß×Ô¶¨ÒåµÄawait_suspendÊµÏÖ£¬»áÔÚawait_suspendÖĞµ÷ÓÃ
+        // å­˜å‚¨å¼€å‘è€…è‡ªå®šä¹‰çš„await_suspendå®ç°ï¼Œä¼šåœ¨await_suspendä¸­è°ƒç”¨
         AsyncTaskSuspender<void> _suspender;
 
         bool await_ready() { return false; }

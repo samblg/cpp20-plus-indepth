@@ -12,9 +12,9 @@ export struct AsyncIoTask {
     using ResumeHandler = std::function<void()>;
     using TaskHandler = std::function<void()>;
 
-    // 协程唤醒函数
+    // 鍗忕▼鍞ら啋鍑芥暟
     ResumeHandler resumeHandler;
-    // I/O任务函数
+    // I/O浠诲姟鍑芥暟
     TaskHandler taskHandler;
 };
 
@@ -46,9 +46,9 @@ public:
     }
 
 private:
-    // I/O任务队列
+    // I/O浠诲姟闃熷垪
     std::vector<AsyncIoTask> _queue;
-    // I/O任务队列互斥锁，用于实现线程同步，确保队列操作的线程安全
+    // I/O浠诲姟闃熷垪浜掓枼閿侊紝鐢ㄤ簬瀹炵幇绾跨▼鍚屾锛岀‘淇濋槦鍒楁搷浣滅殑绾跨▼瀹夊叏
     std::mutex _queueMutex;
 };
 

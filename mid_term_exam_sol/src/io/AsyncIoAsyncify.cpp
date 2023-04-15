@@ -14,7 +14,7 @@ namespace asyncpp::io {
     using asyncpp::task::AsyncTaskSuspender;
     using asyncpp::task::CoroutineHandle;
 
-    // Òì²½I/OÈÎÎñµÄAsyncTaskSuspender£¨µ±ÈÎÎñº¯Êı·µ»ØÀàĞÍ²»ÎªvoidÊ±£©
+    // å¼‚æ­¥I/Oä»»åŠ¡çš„AsyncTaskSuspenderï¼ˆå½“ä»»åŠ¡å‡½æ•°è¿”å›ç±»å‹ä¸ä¸ºvoidæ—¶ï¼‰
     template <typename ResultType>
     void ioAsyncAwaitableSuspend(
         Awaitable<ResultType>* awaitable,
@@ -33,7 +33,7 @@ namespace asyncpp::io {
         asyncpp::io::AsyncIoTaskQueue::getInstance().enqueue(operationItem);
     }
 
-    // Òì²½I/OÈÎÎñµÄAsyncTaskSuspender£¨µ±ÈÎÎñº¯Êı·µ»ØÀàĞÍÎªvoidÊ±£©
+    // å¼‚æ­¥I/Oä»»åŠ¡çš„AsyncTaskSuspenderï¼ˆå½“ä»»åŠ¡å‡½æ•°è¿”å›ç±»å‹ä¸ºvoidæ—¶ï¼‰
     template <>
     void ioAsyncAwaitableSuspend<void>(
         Awaitable<void>* awaitable,
@@ -52,7 +52,7 @@ namespace asyncpp::io {
         asyncpp::io::AsyncIoTaskQueue::getInstance().enqueue(operationItem);
     }
 
-    // Òì²½»¯¹¤¾ßº¯Êı£¬Ö§³Ö½«ÆÕÍ¨º¯Êıf×÷ÎªI/OÈÎÎñÒì²½»¯
+    // å¼‚æ­¥åŒ–å·¥å…·å‡½æ•°ï¼Œæ”¯æŒå°†æ™®é€šå‡½æ•°fä½œä¸ºI/Oä»»åŠ¡å¼‚æ­¥åŒ–
     export template <Invocable T>
     auto ioAsyncify(T taskHandler) {
         using ResultType = std::invoke_result_t<T>;

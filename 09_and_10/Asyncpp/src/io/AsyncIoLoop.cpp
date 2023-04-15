@@ -10,19 +10,19 @@ import <functional>;
 namespace asyncpp::io {
     export class AsyncIoLoop {
     public:
-        // ³£Á¿£¬¶¨ÒåÁËÈÎÎñÑ­»·µÄµÈ´ı¼ä¸ôÊ±¼ä£¨µ¥Î»ÎªºÁÃë£©
+        // å¸¸é‡ï¼Œå®šä¹‰äº†ä»»åŠ¡å¾ªç¯çš„ç­‰å¾…é—´éš”æ—¶é—´ï¼ˆå•ä½ä¸ºæ¯«ç§’ï¼‰
         static const int32_t SLEEP_MS = 1000;
 
         static AsyncIoLoop& start();
 
     private:
-        // Ö§³Öµ¥ÀıÄ£Ê½£¬½«Æä¶¨ÒåÎ´private£¬·ÀÖ¹Íâ²¿µ÷ÓÃ¹¹Ôìº¯Êı
+        // æ”¯æŒå•ä¾‹æ¨¡å¼ï¼Œå°†å…¶å®šä¹‰æœªprivateï¼Œé˜²æ­¢å¤–éƒ¨è°ƒç”¨æ„é€ å‡½æ•°
         AsyncIoLoop() {
             _thread = std::jthread(std::bind(&AsyncIoLoop::loopMain, this));
         }
-        // Ö§³Öµ¥ÀıÄ£Ê½£¬Í¨¹ıdeleteĞŞÊÎ·ûËµÃ÷¿½±´¹¹Ôìº¯Êı²»¿Éµ÷ÓÃ
+        // æ”¯æŒå•ä¾‹æ¨¡å¼ï¼Œé€šè¿‡deleteä¿®é¥°ç¬¦è¯´æ˜æ‹·è´æ„é€ å‡½æ•°ä¸å¯è°ƒç”¨
         AsyncIoLoop(const AsyncIoLoop&) = delete;
-        // Ö§³Öµ¥ÀıÄ£Ê½£¬Í¨¹ıdeleteĞŞÊÎ·ûËµÃ÷¸³Öµ²Ù×÷·û²»¿Éµ÷ÓÃ
+        // æ”¯æŒå•ä¾‹æ¨¡å¼ï¼Œé€šè¿‡deleteä¿®é¥°ç¬¦è¯´æ˜èµ‹å€¼æ“ä½œç¬¦ä¸å¯è°ƒç”¨
         AsyncIoLoop& operator=(const AsyncIoLoop&) = delete;
 
         void loopExecution() {
@@ -46,7 +46,7 @@ namespace asyncpp::io {
             }
         }
         
-        // jthread¶ÔÏó£¬ÎªI/OÏß³Ì£¬jthreadÈÃ¸ÃÏß³Ì½áÊøÖ®Ç°Õû¸ö½ø³Ì¶¼²»»á½áÊø
+        // jthreadå¯¹è±¡ï¼Œä¸ºI/Oçº¿ç¨‹ï¼Œjthreadè®©è¯¥çº¿ç¨‹ç»“æŸä¹‹å‰æ•´ä¸ªè¿›ç¨‹éƒ½ä¸ä¼šç»“æŸ
         std::jthread _thread;
     };
 

@@ -8,7 +8,7 @@ namespace asyncpp::task {
 
 export class AsyncTaskLoop {
 public:
-    // ³£Á¿£¬¶¨ÒåÁËÈÎÎñÑ­»·µÄµÈ´ı¼ä¸ôÊ±¼ä£¨µ¥Î»ÎªºÁÃë£©
+    // å¸¸é‡ï¼Œå®šä¹‰äº†ä»»åŠ¡å¾ªç¯çš„ç­‰å¾…é—´éš”æ—¶é—´ï¼ˆå•ä½ä¸ºæ¯«ç§’ï¼‰
     static const int32_t SLEEP_MS = 1000;
 
     static AsyncTaskLoop& getInstance();
@@ -17,11 +17,11 @@ public:
     }
 
 private:
-    // Ö§³Öµ¥ÀıÄ£Ê½£¬Í¨¹ıdefaultĞŞÊÎ·ûËµÃ÷¹¹Ôìº¯ÊıÊ¹ÓÃÄ¬ÈÏ°æ±¾
+    // æ”¯æŒå•ä¾‹æ¨¡å¼ï¼Œé€šè¿‡defaultä¿®é¥°ç¬¦è¯´æ˜æ„é€ å‡½æ•°ä½¿ç”¨é»˜è®¤ç‰ˆæœ¬
     AsyncTaskLoop() = default;
-    // Ö§³Öµ¥ÀıÄ£Ê½£¬Í¨¹ıdeleteĞŞÊÎ·ûËµÃ÷¿½±´¹¹Ôìº¯Êı²»¿Éµ÷ÓÃ
+    // æ”¯æŒå•ä¾‹æ¨¡å¼ï¼Œé€šè¿‡deleteä¿®é¥°ç¬¦è¯´æ˜æ‹·è´æ„é€ å‡½æ•°ä¸å¯è°ƒç”¨
     AsyncTaskLoop(const AsyncTaskLoop&) = delete;
-    // Ö§³Öµ¥ÀıÄ£Ê½£¬Í¨¹ıdeleteĞŞÊÎ·ûËµÃ÷¸³Öµ²Ù×÷·û²»¿Éµ÷ÓÃ
+    // æ”¯æŒå•ä¾‹æ¨¡å¼ï¼Œé€šè¿‡deleteä¿®é¥°ç¬¦è¯´æ˜èµ‹å€¼æ“ä½œç¬¦ä¸å¯è°ƒç”¨
     AsyncTaskLoop& operator=(const AsyncTaskLoop&) = delete;
 
     void startLoop() {

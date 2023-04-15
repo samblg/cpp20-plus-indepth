@@ -20,25 +20,25 @@ Coroutine asyncFs()
 {
     std::string dirPath = "dir1/a/b/c";
 
-    // ´´½¨Ä¿Â¼
+    // åˆ›å»ºç›®å½•
     std::string cmd = "createDirectories";
     std::cout << "[AWAIT] Before: " << cmd << std::endl;
     auto createResult = co_await createDirectories(dirPath);
     std::cout << "[AWAIT] After: " << cmd << ": " << std::boolalpha << createResult << std::endl;
 
-    // ÅÐ¶ÏÂ·¾¶ÊÇ·ñ´æÔÚ
+    // åˆ¤æ–­è·¯å¾„æ˜¯å¦å­˜åœ¨
     cmd = "exists1";
     std::cout << "[AWAIT] Before: " << cmd << std::endl;
     auto existsResult1 = co_await exists(dirPath);
     std::cout << "[AWAIT] After: " << cmd << ": " << std::boolalpha << existsResult1 << std::endl;
 
-    // É¾³ýÄ¿Â¼
+    // åˆ é™¤ç›®å½•
     cmd = "removeAll";
     std::cout << "[AWAIT] Before: " << cmd << std::endl;
     auto removeResult = co_await removeAll(dirPath);
     std::cout << "[AWAIT] After: " << cmd << ": " << std::boolalpha << removeResult << std::endl;
 
-    // ÅÐ¶ÏÂ·¾¶ÊÇ·ñ´æÔÚ
+    // åˆ¤æ–­è·¯å¾„æ˜¯å¦å­˜åœ¨
     cmd = "exists2";
     std::cout << "[AWAIT] Before: " << cmd << std::endl;
     auto existsResult2 = co_await exists(dirPath);
@@ -59,19 +59,19 @@ auto asyncHello() {
 }
 
 asyncpp::task::Coroutine testVoid() {
-    // voidº¯Êý·â×°Ê¾Àý
+    // voidå‡½æ•°å°è£…ç¤ºä¾‹
     co_await asyncHello();
 }
 
 int main() {
-    // Æô¶¯Òì²½I/OÈÎÎñÏß³Ì
+    // å¯åŠ¨å¼‚æ­¥I/Oä»»åŠ¡çº¿ç¨‹
     AsyncIoLoop::start();
 
-    // µ÷ÓÃÐ­³Ì£¨Ð­³Ì»á²¢·¢Ö´ÐÐ£©
+    // è°ƒç”¨åç¨‹ï¼ˆåç¨‹ä¼šå¹¶å‘æ‰§è¡Œï¼‰
     asyncFs();
     testVoid();
 
-    // Æô¶¯Ö÷Ïß³ÌÈÎÎñÑ­»·£¨Ò»¶¨Òª×îºóµ÷ÓÃ£¬ÕâÀï»á×èÈû£©
+    // å¯åŠ¨ä¸»çº¿ç¨‹ä»»åŠ¡å¾ªçŽ¯ï¼ˆä¸€å®šè¦æœ€åŽè°ƒç”¨ï¼Œè¿™é‡Œä¼šé˜»å¡žï¼‰
     AsyncTaskLoop::start();
 
     return 0;
